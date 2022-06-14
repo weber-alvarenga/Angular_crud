@@ -1,0 +1,29 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Caneta BIC preta",
+      "valor": 5.99
+    },
+    {
+      "id": 2,
+      "nome": "Notebook Mac Pro",
+      "valor": 12000
+    },
+    {
+      "id": 3,
+      "nome": "Sansung S20+",
+      "valor": 4499.99
+    },
+    {
+      "nome": "Geladeira",
+      "valor": 3000,
+      "id": 4
+    },
+    {
+      "nome": "Via formulário",
+      "valor": "9.99",
+      "id": 6
+    }
+  ]
+}
