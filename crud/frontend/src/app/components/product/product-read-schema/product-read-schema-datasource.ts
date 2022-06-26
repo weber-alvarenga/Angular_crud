@@ -1,37 +1,40 @@
+import { Product } from './../product.model';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
+/*
 // TODO: Replace this with your own data model type
 export interface ProductReadSchemaItem {
-  name: string;
+  nome: string;
   id: number;
 }
+*/
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: ProductReadSchemaItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+const EXAMPLE_DATA: Product[] = [
+  {id: 1, nome: 'Hydrogen', valor: 1.99},
+  {id: 2, nome: 'Helium', valor: 1.99},
+  {id: 3, nome: 'Lithium', valor: 1.99},
+  {id: 4, nome: 'Beryllium', valor: 1.99},
+  {id: 5, nome: 'Boron', valor: 1.99},
+  {id: 6, nome: 'Carbon', valor: 1.99},
+  {id: 7, nome: 'Nitrogen', valor: 1.99},
+  {id: 8, nome: 'Oxygen', valor: 1.99},
+  {id: 9, nome: 'Fluorine', valor: 1.99},
+  {id: 10, nome: 'Neon', valor: 1.99},
+  {id: 11, nome: 'Sodium', valor: 1.99},
+  {id: 12, nome: 'Magnesium', valor: 1.99},
+  {id: 13, nome: 'Aluminum', valor: 1.99},
+  {id: 14, nome: 'Silicon', valor: 1.99},
+  {id: 15, nome: 'Phosphorus', valor: 1.99},
+  {id: 16, nome: 'Sulfur', valor: 1.99},
+  {id: 17, nome: 'Chlorine', valor: 1.99},
+  {id: 18, nome: 'Argon', valor: 1.99},
+  {id: 19, nome: 'Potassium', valor: 1.99},
+  {id: 20, nome: 'Calcium', valor: 1.99},
 ];
 
 /**
@@ -39,21 +42,24 @@ const EXAMPLE_DATA: ProductReadSchemaItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ProductReadSchemaDataSource extends DataSource<ProductReadSchemaItem> {
-  data: ProductReadSchemaItem[] = EXAMPLE_DATA;
+export class ProductReadSchemaDataSource extends DataSource<Product> {
+  data: Product[] = [];//EXAMPLE_DATA;
   paginator: MatPaginator;
   sort: MatSort;
 
   constructor() {
     super();
   }
-
+  
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ProductReadSchemaItem[]> {
+  connect(): Observable<Product[]> {
+
+    console.log('connect');
+
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +83,7 @@ export class ProductReadSchemaDataSource extends DataSource<ProductReadSchemaIte
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ProductReadSchemaItem[]) {
+  private getPagedData(data: Product[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +92,7 @@ export class ProductReadSchemaDataSource extends DataSource<ProductReadSchemaIte
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ProductReadSchemaItem[]) {
+  private getSortedData(data: Product[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -94,7 +100,7 @@ export class ProductReadSchemaDataSource extends DataSource<ProductReadSchemaIte
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'nome': return compare(a.nome, b.nome, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
@@ -102,7 +108,7 @@ export class ProductReadSchemaDataSource extends DataSource<ProductReadSchemaIte
   }
 }
 
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
+/** Simple sort comparator for example ID/nome columns (for client-side sorting). */
 function compare(a: string | number, b: string | number, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
