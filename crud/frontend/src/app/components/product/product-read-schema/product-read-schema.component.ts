@@ -26,25 +26,27 @@ export class ProductReadSchemaComponent implements AfterViewInit, OnInit {
   constructor(private productService: ProductService) {};
 
   ngOnInit() {
-/*
+    console.log('ngOnInit');
     // Sem usar classe "DataSource"
     this.productService.listarProdutos().subscribe(produtos => {
+      console.log('chamada serviço');
       this.dataSource = new MatTableDataSource<Product>(produtos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-*/
 
+/*
     // Usando classe "DataSource"
     this.productService.listarProdutos().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource<ProductReadSchemaDataSource>(data);
     })
-
+*/
   }
 
 
   ngAfterViewInit() {
-    
+    console.log('ngAfterViewInit');
+    console.log(this.sort);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
